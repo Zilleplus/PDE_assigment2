@@ -1,15 +1,17 @@
 %% STABLE heat equation
 h=20; 
 k=160;
-tf = 0.1;% time window length
+tf = 0.10;% time window length
+
 
 % intial condition
-f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+%f_u_0 =@(x,y) zeros(size(x,1),size(x,2)); 
+f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
 % border condition
 fleft=  @(t,y)0;
-fright= @(t,y) 1;
+fright= @(t,y) 0;
 fupper= @(t,x)0;
-flower= @(t,x) 1;
+flower= @(t,x) 0;
 
 figureNumber=1;
 [ u ] = function_simulate( 'heat',figureNumber , ... 
@@ -18,16 +20,17 @@ figureNumber=1;
 fig=figure(figureNumber);saveas(fig,'./figures/part2_stable_heat.png');
 %% UNSTABLE heat equation
 h=20; 
-k=150;
+k=80;
 tf = 0.1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+%f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
 % border condition
 fleft=  @(t,y)0;
-fright= @(t,y)1;
+fright= @(t,y)0;
 fupper= @(t,x)0;
-flower= @(t,x)1;
+flower= @(t,x)0;
 
 figureNumber=2;
 [ u ] = function_simulate( 'heat',figureNumber , ... 
@@ -40,10 +43,11 @@ k=40;
 tf = 1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+%f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
 % border condition
-fleft=  @(t,y)1;
-fright= @(t,y)1;
+fleft=  @(t,y)0;
+fright= @(t,y)0;
 fupper= @(t,x)0;
 flower= @(t,x)0;
 
@@ -58,10 +62,11 @@ k=25;
 tf = 1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+%f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
 % border condition
-fleft=  @(t,y)1;
-fright= @(t,y)1;
+fleft=  @(t,y)0;
+fright= @(t,y)0;
 fupper= @(t,x)0;
 flower= @(t,x)0;
 
@@ -77,10 +82,11 @@ k=80;
 tf = 2;% time window length
 
 % intial condition
-f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+%f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
 % border condition
-fleft=  @(t,y)1;
-fright= @(t,y)1;
+fleft=  @(t,y)0;
+fright= @(t,y)0;
 fupper= @(t,x)0;
 flower= @(t,x)0;
 
@@ -94,10 +100,11 @@ k=65;
 tf = 2;% time window length
 
 % intial condition
-f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+%f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
+f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
 % border condition
-fleft=  @(t,y)1;
-fright= @(t,y)1;
+fleft=  @(t,y)0;
+fright= @(t,y)0;
 fupper= @(t,x)0;
 flower= @(t,x)0;
 

@@ -6,9 +6,9 @@ tf = 0.15;% time window length
 f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)0;
-fright= @(t,y)1;
+fright= @(t,y)0;
 fupper= @(t,x)0;
-flower= @(t,x)1;
+flower= @(t,x)0;
 
 figureNumber=1;
 [ u ] = function_simulate( 'heat',figureNumber , ... 
@@ -23,8 +23,8 @@ tf = 1;% time window length
 % intial condition
 f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
-fleft=  @(t,y)1;
-fright= @(t,y)1;
+fleft=  @(t,y)0;
+fright= @(t,y)0;
 fupper= @(t,x)0;
 flower= @(t,x)0;
 
@@ -41,8 +41,8 @@ tf = 2;% time window length
 % intial condition
 f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
-fleft=  @(t,y)1;
-fright= @(t,y)1;
+fleft=  @(t,y)0;
+fright= @(t,y)0;
 fupper= @(t,x)0;
 flower= @(t,x)0;
 
