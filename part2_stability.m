@@ -4,7 +4,7 @@ k=160;
 tf = 0.1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) 0;
+f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)0;
 fright= @(t,y) 1;
@@ -22,7 +22,7 @@ k=150;
 tf = 0.1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) 0;
+f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)0;
 fright= @(t,y)1;
@@ -40,7 +40,7 @@ k=40;
 tf = 1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) 0;
+f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)1;
 fright= @(t,y)1;
@@ -58,7 +58,7 @@ k=25;
 tf = 1;% time window length
 
 % intial condition
-f_u_0 =@(x,y) 0;
+f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)1;
 fright= @(t,y)1;
@@ -77,7 +77,7 @@ k=80;
 tf = 2;% time window length
 
 % intial condition
-f_u_0 =@(x,y) 0;
+f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)1;
 fright= @(t,y)1;
@@ -94,7 +94,7 @@ k=65;
 tf = 2;% time window length
 
 % intial condition
-f_u_0 =@(x,y) 0;
+f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 % border condition
 fleft=  @(t,y)1;
 fright= @(t,y)1;
