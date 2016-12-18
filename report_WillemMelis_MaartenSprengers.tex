@@ -100,7 +100,53 @@
 \newpage
 
 \section{Algemene structuur Matlab implementatie}
-TODO, Dit doe ik zelf wel voor de code die ik schreef, normaal gezien tegen morgen avond zal dit opgevuld zijn.
+\subsection{indexing}
+Er zijn 4 verschillende matrixen met indexen. De matrix jx bevat de x coördinaat van ieder punten op het grid en jy de y coördinaten van ieder punt. Deze twee matrixen kunnen gecombineerd worden om de matrix j te vormen. Coördinaten van de interne punten, dus alle punten zonder de randen zijn bewaard in j\_int.
+
+Hieronder is een eenvoudig voorbeeld voor een grid van 4*4.
+\begin{center}
+	\captionof{table}{jx}
+	\begin{tabular}{ c c c c }
+		1 & 2 & 3 & 4 \\
+		1 & 2 & 3 & 4 \\
+		1 & 2 & 3 & 4 \\
+		1 & 2 & 3 & 4
+	
+	\end{tabular}
+\end{center}
+
+\begin{center}
+	\captionof{table}{jy}
+	\begin{tabular}{ c c c c }
+		1 & 1 & 1 & 1 \\
+		2 & 2 & 2 & 2 \\
+		3 & 3 & 3 & 3 \\
+		4 & 4 & 4 & 4
+	\end{tabular}
+\end{center}
+
+\begin{center}
+	\captionof{table}{j}
+	\begin{tabular}{ c c c c }
+		1 & 5 & 9  & 13 \\
+		2 & 6 & 10 & 14 \\
+		3 & 7 & 11 & 15 \\
+		4 & 8 & 12 & 16
+	\end{tabular}
+\end{center}
+
+\begin{center}
+	\captionof{table}{$j\_int$}
+	\begin{tabular}{ c  c }
+
+		6 & 10 \\
+		7 & 11 \\
+
+	\end{tabular}
+\end{center}
+
+
+
 \section{Integratie verschillende vergelijkingen}
 
 	\subsection{warmte vergelijking}
@@ -230,7 +276,7 @@ Hier kan hetzelfde script van part2 gebruikt worden!, deze geeft namelijk een u 
 	\subsection{Transport vergelijking}
 	TODO bepaal h en k
 	\subsection{Resultaat}
-	los een bug op met de beginvoorwaarden, die gaan om 1 of andere reden altijd naar nul , bekijk deze lijn eens:u=f\_u\_0(jx,jy);!!
+	los een bug op met de beginvoorwaarden, die gaan om 1 of andere reden altijd naar nul , bekijk deze lijn eens:u=f\_u\_0(jx,jy); de ze komt altijd 0 uit, wrschnlk een type in de definitie van f\_u\_0(jx,jy)
 	
 	Die functie super klein, dit is waarschijnlijk niet juist
 	\begin{figure}[H]
