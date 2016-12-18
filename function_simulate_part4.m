@@ -3,7 +3,7 @@ function [ u ] = function_simulate_part4(equation,figureNumber,h,k)
     tf = 1;% time window length
 
     % intial condition
-%     f_u_0 =@(x,y) ones(size(x,1),size(x,2));
+    % f_u_0 =@(x,y) ones(size(x,1),size(x,2));
     f_u_0 =@(x,y) 15.*(x-x.^2).*(y-y.^2).* ...
         exp( -50.*( (x-0.5).^2  + (y-0.5).^2 ) );
     % border condition
@@ -20,28 +20,29 @@ function [ u ] = function_simulate_part4(equation,figureNumber,h,k)
     j=jy+(jx-1)*h;
 
     % create initial grid
-    u=f_u_0(jx,jy); % set the inner points
+    u=zeros(h,h);
+    x=linspace(0,1,h);y=linspace(0,1,h);
+    u(1:end,1:end)=f_u_0(x(jx),y(jy)); % set the inner points
 
     % set the border conditions
     t_0=0;
 
-    u(2:end-1,1)   = fleft(t_0,jy(2:end-1,1)); % set the left border
-    u(2:end-1,end) = fright(t_0,jy(2:end-1,end)); % set the left border
+    u(2:end-1,1)   = fleft(t_0,y(jy(2:end-1,1))); % set the left border
+    u(2:end-1,end) = fright(t_0,y(jy(2:end-1,end))); % set the left border
 
-    u(1,:)     = fupper(t_0,jx(1,1:end)); % set the upper border
-    u(end,:)   = flower(t_0,jx(end,1:end)); % set the lower border
+    u(1,:)     = fupper(t_0,x(jx(1,1:end))); % set the upper border
+    u(end,:)   = flower(t_0,x(jx(end,1:end))); % set the lower border
     
     uprevious=u; % needed with the wave equation
 
-    index_plot=1;
-    j_int=j(2:end-1,2:end-1);
+    index_plot=1;j_int=j(2:end-1,2:end-1);
     figure(figureNumber);clf;
     for n = 1:k
-        u(2:end-1,1) = fleft(n*dt,jy(2:end-1,1)); % set the left border
-        u(2:end-1,end) = fright(n*dt,jy(2:end-1,end)); % set the left border
+        u(2:end-1,1)   = fleft(t_0,y(jy(2:end-1,1))); % set the left border
+        u(2:end-1,end) = fright(t_0,y(jy(2:end-1,end))); % set the left border
 
-        u(1,:) = fupper(n*dt,jx(1,1:end)); % set upper border
-        u(end,:) = flower(n*dt,jx(end,1:end)); % set lower border
+        u(1,:)     = fupper(t_0,x(jx(1,1:end))); % set the upper border
+        u(end,:)   = flower(t_0,x(jx(end,1:end))); % set the lower border
         
         if(strcmp(equation,'heat'))
             mu=dt/(dx^2); 

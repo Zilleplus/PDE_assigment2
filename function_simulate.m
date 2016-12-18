@@ -1,7 +1,6 @@
 function [ u ] = function_simulate(equation,figureNumber, ...
     h,k,tf,f_u_0,fleft,fright,fupper,flower )
     % initializations
-    
     dx = 1/h;             % number of points in x
     dt = tf/k;           % number of timesteps
     
@@ -11,16 +10,17 @@ function [ u ] = function_simulate(equation,figureNumber, ...
 
     % create initial grid
     u=zeros(h,h);
-    u=f_u_0(jx,jy); % set the inner points
+    x=linspace(0,1,h);y=linspace(0,1,h);
+    u(1:end,1:end)=f_u_0(x(jx),y(jy));
 
     % set the border conditions
     t_0=0;
 
-    u(2:end-1,1)   = fleft(t_0,jy(2:end-1,1)); % set the left border
-    u(2:end-1,end) = fright(t_0,jy(2:end-1,end)); % set the left border
+    u(2:end-1,1)   = fleft(t_0,y(jy(2:end-1,1))); % set the left border
+    u(2:end-1,end) = fright(t_0,y(jy(2:end-1,end))); % set the left border
 
-    u(1,:)     = fupper(t_0,jx(1,1:end)); % set the upper border
-    u(end,:)   = flower(t_0,jx(end,1:end)); % set the lower border
+    u(1,:)     = fupper(t_0,x(jx(1,1:end))); % set the upper border
+    u(end,:)   = flower(t_0,x(jx(end,1:end))); % set the lower border
     
     uprevious=u; % needed with the wave equation
 
@@ -30,11 +30,11 @@ function [ u ] = function_simulate(equation,figureNumber, ...
 
     j_int=j(2:end-1,2:end-1);
     for n = 1:k
-        u(2:end-1,1) = fleft(n*dt,jy(2:end-1,1)); % set the left border
-        u(2:end-1,end) = fright(n*dt,jy(2:end-1,end)); % set the left border
+        u(2:end-1,1)   = fleft(t_0,y(jy(2:end-1,1))); % set the left border
+        u(2:end-1,end) = fright(t_0,y(jy(2:end-1,end))); % set the left border
 
-        u(1,:) = fupper(n*dt,jx(1,1:end)); % set upper border
-        u(end,:) = flower(n*dt,jx(end,1:end)); % set lower border
+        u(1,:)     = fupper(t_0,x(jx(1,1:end))); % set the upper border
+        u(end,:)   = flower(t_0,x(jx(end,1:end))); % set the lower border
         
         if(strcmp(equation,'heat'))
             mu=dt/(dx^2); 
