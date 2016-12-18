@@ -100,6 +100,7 @@
 \newpage
 
 \section{Algemene structuur Matlab implementatie}
+TODO, Dit doe ik zelf wel voor de code die ik schreef, normaal gezien tegen morgen avond zal dit opgevuld zijn.
 \section{Integratie verschillende vergelijkingen}
 
 	\subsection{warmte vergelijking}
@@ -122,6 +123,7 @@ function [ unew ] = functin_integrate_heat( u,mu,h,j_int)
 	     mu*(u(j_int+h) + u(j_int-h) +  u(j_int+1) + u(j_int-1));
 	end
 \end{lstlisting}
+		In les 5 over het deel van partiële differentiaal vergelijking werd de stabiliteit voor dit schema bewezen. Dit bleek $\mu_x + \mu_y \leq \frac{1}{2}$ te zijn. Aangezien $\mu_x = \mu_y$ kunnen kan worden gesteld dat: $\mu_x=\mu_y=\frac{\Delta y}{\Delta x^2} \leq \frac{1}{2}$.
 	\subsection{Golf vergelijking}
 		\begin{eqnarray}
 		\frac{\partial^2 u}{\partial t^2} = 
@@ -137,7 +139,15 @@ function [ unew ] = functin_integrate_heat( u,mu,h,j_int)
 			U_{r,s}^{n+1} = ( 1-2\mu )U_{r,s}^n + \mu (U_{r-1,s}^n  + U_{r+1,s}
 			U_{r,s-1}^n  + U_{r,s+1}) - U_{r,s}^{n-1}
 		\end{eqnarray}
-	\subsection{Transport vergeljiking}
+\begin{lstlisting}[caption=Code Explicit Euler,label={lst:expl_euler}]
+function [ unew,uold ] = functin_integrate_wave( u,uprevious,mu,h,j_int)
+	uold=u; % keep the old one, as its needed in the nex iteration
+	unew = (1-2*mu)*u(j_int) + uprevious(j_int) + ...
+		mu*( u(j_int+h) + u(j_int-h) + ...
+		u(j_int+1) + u(j_int-1) );
+end
+\end{lstlisting}
+	\subsection{Transport vergelijking}
 		\begin{equation}
 			\frac{\partial u}{\partial t} = \frac{\partial u}{\partial x} + \frac{\partial u}{\partial y}
 		\end{equation}
@@ -148,5 +158,97 @@ function [ unew ] = functin_integrate_heat( u,mu,h,j_int)
 			\frac{U^n_{r,s-1} -U^n_{r,s}}{\Delta y} \\
 			U_{r,s}^{n+1} = (1- 2 \mu)U^n_{r,s} + \mu (U^n_{r-1,s}+U^n_{r,s-1})
 		\end{eqnarray}
-
+\begin{lstlisting}[caption=Code Explicit Euler,label={lst:expl_euler}]
+function [ unew ] = functin_integrate_transport( u,mu,h,j_int)
+	unew = (1-2*mu)*u(j_int) + ... 
+	mu*( u(j_int-h) + u(j_int-1)) ;
+end
+\end{lstlisting}
+\clearpage
+\section{Stabiliteit}
+	\subsection{Warmte vergelijking}
+	Zoals eerder vermeld is het stabiliteitsgebied van de warmtevergelijking  $\mu_x=\mu_y=\frac{\Delta y}{\Delta x^2} \leq \frac{1}{2}$. In de Matlab implementatie gebruiken we de constanten k en h, om dt en $\Delta x$ of $\Delta y$ te berekenen. ($\Delta t=\frac{tf}{k}$ en $(\Delta x)^2 = \frac{1}{h^2}$)
+	\begin{equation}
+		k_{grens} = \frac{t_f h^2}{\mu_grens}
+	\end{equation}
+	\begin{figure}[H]
+		\centering
+		\subfloat[h=20 en k=160 de grens van stabiliteit]{
+			\includegraphics[width=0.47\textwidth]{part2_stable_heat.png}
+			%\label{fig:}
+		}
+		\hfill
+		\subfloat[h=20 en k=150 dit is een onstabiele keuze]{
+			\includegraphics[width=0.47\textwidth]{part2_unstable_heat.png}
+			%\label{fig:}
+		}
+	\caption{Demonstratie stabiliteit van warmte vergelijking en keuze h/k}
+	\end{figure}
+	
+	\subsection{Golf vergelijking}
+	De grens van $\mu$ moet nog bepaald worden warschnk is dit 0.5.
+	\begin{figure}[H]
+		\centering
+		\subfloat[h=20 en k=40 de grens van stabiliteit]{
+			\includegraphics[width=0.47\textwidth]{part2_stable_heat.png}
+			%\label{fig:}
+		}
+		\hfill
+		\subfloat[h=20 en k=25 de grens van stabiliteit]{
+			\includegraphics[width=0.47\textwidth]{part2_unstable_heat.png}
+			%\label{fig:}
+		}
+		\caption{Demonstratie stabiliteit van golf vergelijking en keuze h/k}
+	\end{figure}
+	\subsection{Transport vergelijking}
+	Waarschijnlijk is de grens van stabiliteit van dit ding $\mu<0.5$ , dit heb ik experimenteel vastgesteld dus hier moet nog een bewijs .
+	\begin{figure}[H]
+		\centering
+		\subfloat[h=20 en k=80 de grens van stabiliteit]{
+			\includegraphics[width=0.47\textwidth]{part2_stable_heat.png}
+			%\label{fig:}
+		}
+		\hfill
+		\subfloat[h=20 en k=65 de grens van stabiliteit]{
+			\includegraphics[width=0.47\textwidth]{part2_unstable_heat.png}
+			%\label{fig:}
+		}
+		\caption{Demonstratie stabiliteit van transport vergelijking en keuze h/k}
+	\end{figure}
+\clearpage
+\section{Nauwkeurigheid TODO}
+Hier kan hetzelfde script van part2 gebruikt worden!, deze geeft namelijk een u terug voor de simulaties... gewoon nog de inf norm bepalen.. Alsook de analytische oplossingen om ze mee te vergelijken.
+	\subsection{Warmte vergelijking}
+	\subsection{Golf vergelijking}
+	\subsection{Transport vergelijking}
+\clearpage
+\section{Oplossing op t=0.1 en t=0.2 TODO}
+	\subsection{Warmte vergelijking}
+	TODO bepaal h en k
+	\subsection{Golf vergelijking}
+	TODO bepaal h en k
+	\subsection{Transport vergelijking}
+	TODO bepaal h en k
+	\subsection{Resultaat}
+	los een bug op met de beginvoorwaarden, die gaan om 1 of andere reden altijd naar nul , bekijk deze lijn eens:u=f\_u\_0(jx,jy);!!
+	
+	Die functie super klein, dit is waarschijnlijk niet juist
+	\begin{figure}[H]
+		\centering
+		\subfloat[h=? en k=?]{
+			\includegraphics[width=0.47\textwidth]{part4_heat.png}
+			%\label{fig:}
+		}
+		\hfill
+		\subfloat[h=? en k=?]{
+			\includegraphics[width=0.47\textwidth]{part4_wave.png}
+			%\label{fig:}
+		}
+	
+		\subfloat[h=? en k=?]{
+			\includegraphics[width=0.47\textwidth]{part4_transport.png}
+			%\label{fig:}
+		}
+		\caption{Resultaat integratie op t=0.1 en t=0.2, de linker plot is altijd t=0.1 en de rechter is t=0.2}
+	\end{figure}
 \end{document}
