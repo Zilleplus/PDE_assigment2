@@ -25,7 +25,7 @@ j=jy+(jx-1)*h;
 
 % create initial grid
 u=zeros(h,h);
-u(2:end-1,2:end-1)=f_u_0(jx,jy); % set the inner points
+u(1:end)=f_u_0(jx,jy); % set the inner points
 
 % set the border conditions
 t_0=0;
