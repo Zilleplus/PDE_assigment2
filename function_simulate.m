@@ -11,7 +11,7 @@ function [ u ] = function_simulate(equation,figureNumber, ...
 
     % create initial grid
     u=zeros(h,h);
-    u(2:end-1,2:end-1)=f_u_0(jx,jy); % set the inner points
+    u=f_u_0(jx,jy); % set the inner points
 
     % set the border conditions
     t_0=0;
@@ -33,8 +33,8 @@ function [ u ] = function_simulate(equation,figureNumber, ...
         u(2:end-1,1) = fleft(n*dt,jy(2:end-1,1)); % set the left border
         u(2:end-1,end) = fright(n*dt,jy(2:end-1,end)); % set the left border
 
-        u(end,1:end) = fupper(n*dt,jx(1,1:end)); % set upper border
-        u(1,1:end) = flower(n*dt,jx(end,1:end)); % set lower border
+        u(1,:) = fupper(n*dt,jx(1,1:end)); % set upper border
+        u(end,:) = flower(n*dt,jx(end,1:end)); % set lower border
         
         if(strcmp(equation,'heat'))
             mu=dt/(dx^2); 
