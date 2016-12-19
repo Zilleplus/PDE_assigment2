@@ -24,12 +24,13 @@ function [ u ] = function_simulate(equation,figureNumber, ...
     
     % exact solutions
     f_u_ex_heat = @(x,y,t) sin(pi.*x).*sin(pi.*y).*exp(-2*pi^2*t);
-    f_u_ex_wave = @(x,y,t) zeros(size(x));
+    f_u_ex_wave = @(x,y,t) sin(pi.*x).*sin(pi.*y).*(cos(sqrt(2).*pi.*t)+sin(sqrt(2).*pi.*t));%zeros(size(x));
     f_u_ex_transport = @(x,y,t) zeros(size(x));
     
     
     uprevious=u; % needed with the wave equation
-
+    uprevious=f_u_ex_wave(x_mesh,y_mesh,-dt);
+    
     % plot the initial condition
     figure(figureNumber);clf;
     subplot(3,2,1); surf(x,y,u); title(sprintf('t=%4.3f',0))

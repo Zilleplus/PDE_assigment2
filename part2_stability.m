@@ -40,7 +40,7 @@ fig=figure(figureNumber);saveas(fig,'./figures/part2_unstable_heat.png');
 %% STABlE wave equation
 h=20; 
 k=40;
-tf = 1;% time window length
+tf = 1.2;% time window length
 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
@@ -58,8 +58,8 @@ fig=figure(figureNumber);saveas(fig,'./figures/part2_stable_wave.png');
 
 %% UNSTABLE wave equation
 h=20; 
-k=25;
-tf = 1;% time window length
+k=20;
+tf = 1.2;% time window length
 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
