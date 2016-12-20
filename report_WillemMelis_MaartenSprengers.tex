@@ -169,7 +169,8 @@ function [ unew ] = functin_integrate_heat( u,mu,h,j_int)
 	     mu*(u(j_int+h) + u(j_int-h) +  u(j_int+1) + u(j_int-1));
 	end
 \end{lstlisting}
-		In les 5 over het deel van partiële differentiaal vergelijking werd de stabiliteit voor dit schema bewezen. Dit bleek $\mu_x + \mu_y \leq \frac{1}{2}$ te zijn. Aangezien $\mu_x = \mu_y$ kunnen kan worden gesteld dat: $\mu_x=\mu_y=\frac{\Delta y}{\Delta x^2} \leq \frac{1}{2}$.
+		In les 5 over het deel van partiële differentiaal vergelijking werd de stabiliteit voor dit schema bewezen. Dit bleek $\mu_x + \mu_y \leq \frac{1}{2}$ te zijn. Aangezien $\Delta x = \Delta y$ kan worden gesteld dat: $\mu_x = \mu_y =\frac{\Delta t}{\Delta x^2} \leq \frac{1}{4}$.
+		
 	\subsection{Golf vergelijking}
 		\begin{eqnarray}
 		\frac{\partial^2 u}{\partial t^2} = 
@@ -182,17 +183,20 @@ function [ unew ] = functin_integrate_heat( u,mu,h,j_int)
 			=
 			\frac{U_{r-1,s}^n - 2 U_{r,s}^n + U_{r+1,s}}{\Delta x^2} + 
 			\frac{U_{r,s-1}^n - 2 U_{r,s}^n + U_{,s+1} }{\Delta y^2} \\
-			U_{r,s}^{n+1} = ( 1-2\mu )U_{r,s}^n + \mu (U_{r-1,s}^n  + U_{r+1,s}
+			\Delta x = \Delta y  \ en \  \mu=\frac{\Delta t^2}{\Delta x^2} \\
+			U_{r,s}^{n+1} = ( 2-4\mu )U_{r,s}^n + \mu (U_{r-1,s}^n  + U_{r+1,s}
 			U_{r,s-1}^n  + U_{r,s+1}) - U_{r,s}^{n-1}
 		\end{eqnarray}
 \begin{lstlisting}[caption=Code Explicit Euler,label={lst:expl_euler}]
 function [ unew,uold ] = functin_integrate_wave( u,uprevious,mu,h,j_int)
 	uold=u; % keep the old one, as its needed in the nex iteration
-	unew = (1-2*mu)*u(j_int) + uprevious(j_int) + ...
+	unew = (2-4*mu)*u(j_int) - uprevious(j_int) + ...
 		mu*( u(j_int+h) + u(j_int-h) + ...
 		u(j_int+1) + u(j_int-1) );
 end
 \end{lstlisting}
+De stabiliteitsgrens voor de golfvergelijking is $\mu < 0.5 $ met $\mu=\frac{\Delta t^2}{\Delta x^2}$.  
+
 	\subsection{Transport vergelijking}
 		\begin{equation}
 			\frac{\partial u}{\partial t} = \frac{\partial u}{\partial x} + \frac{\partial u}{\partial y}
@@ -200,35 +204,38 @@ end
 		
 		\begin{eqnarray}
 			\frac{U_{r,s}^{n+1} - U_{r,s}^n}{\Delta t} = 
-			\frac{U^n_{r-1,s} -U^n_{r,s}}{\Delta x} +
-			\frac{U^n_{r,s-1} -U^n_{r,s}}{\Delta y} \\
-			U_{r,s}^{n+1} = (1- 2 \mu)U^n_{r,s} + \mu (U^n_{r-1,s}+U^n_{r,s-1})
+			\frac{U^n_{r+1,s} -U^n_{r,s}}{\Delta x} +
+			\frac{U^n_{r,s+1} -U^n_{r,s}}{\Delta y} \\
+			U_{r,s}^{n+1} = (1 - 2 \mu)U^n_{r,s} + \mu (U^n_{r+1,s}+U^n_{r,s+1})
 		\end{eqnarray}
 \begin{lstlisting}[caption=Code Explicit Euler,label={lst:expl_euler}]
 function [ unew ] = functin_integrate_transport( u,mu,h,j_int)
 	unew = (1-2*mu)*u(j_int) + ... 
-	mu*( u(j_int-h) + u(j_int-1)) ;
+	mu*( u(j_int+h) + u(j_int+1)) ;
 end
 \end{lstlisting}
+De stabiliteitsgrens voor de transportvergelijking is $\mu < 0.5 $ met $\mu=\frac{\Delta t}{\Delta x}$.  
+
 \clearpage
 \section{Stabiliteit}
 	\subsection{Warmte vergelijking}
-	Zoals eerder vermeld is het stabiliteitsgebied van de warmtevergelijking  $\mu_x=\mu_y=\frac{\Delta y}{\Delta x^2} \leq \frac{1}{2}$. In de Matlab implementatie gebruiken we de constanten k en h, om dt en $\Delta x$ of $\Delta y$ te berekenen. ($\Delta t=\frac{tf}{k}$ en $(\Delta x)^2 = \frac{1}{h^2}$)
-	\begin{equation}
-		k_{grens} = \frac{t_f h^2}{\mu_grens}
-	\end{equation}
+	Zoals eerder vermeld is het stabiliteitsgrens van de warmtevergelijking  $\mu_x=\mu_y=\frac{\Delta y}{\Delta x^2} \leq \frac{1}{4}$. In de Matlab implementatie gebruiken we de constanten k en h, om $\Delta t$, $\Delta x$ en $\Delta y$ te berekenen met $\Delta t=\frac{tf}{k}$ en $(\Delta x)^2 = \frac{1}{h^2}$. In figuur \ref{fig:Warmte}\ is duidelijk te zien dat als $\mu $ groter is als $0.25$ de numerieke oplossing onstabiel wordt. Deze overgang tussen stabiel en onstabiel verloop scherp. Let bij het bekijken van de figuren wel goed op de assen.
+
+%	\begin{equation}
+%		k_{grens} = \frac{t_f h^2}{\mu_grens}
+%	\end{equation}
+
 	\begin{figure}[H]
 		\centering
-		\subfloat[h=20 en k=160 de grens van stabiliteit]{
+		\subfloat[Stabiel]{
 			\includegraphics[width=0.47\textwidth]{part2_stable_heat.png}
-			%\label{fig:}
 		}
 		\hfill
-		\subfloat[h=20 en k=150 dit is een onstabiele keuze]{
+		\subfloat[Onstabiel]{
 			\includegraphics[width=0.47\textwidth]{part2_unstable_heat.png}
-			%\label{fig:}
 		}
 	\caption{Demonstratie stabiliteit van warmte vergelijking en keuze h/k}
+	\label{fig:Warmte}
 	\end{figure}
 	
 	\subsection{Golf vergelijking}
@@ -236,12 +243,12 @@ end
 	\begin{figure}[H]
 		\centering
 		\subfloat[h=20 en k=40 de grens van stabiliteit]{
-			\includegraphics[width=0.47\textwidth]{part2_stable_heat.png}
+			\includegraphics[width=0.47\textwidth]{part2_stable_wave.png}
 			%\label{fig:}
 		}
 		\hfill
 		\subfloat[h=20 en k=25 de grens van stabiliteit]{
-			\includegraphics[width=0.47\textwidth]{part2_unstable_heat.png}
+			\includegraphics[width=0.47\textwidth]{part2_unstable_wave.png}
 			%\label{fig:}
 		}
 		\caption{Demonstratie stabiliteit van golf vergelijking en keuze h/k}

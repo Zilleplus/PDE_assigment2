@@ -1,9 +1,10 @@
+load('part2_style.mat') % load style sheet
 %% STABLE heat equation
 h=20; 
-k=160;
-tf = 0.10;% time window length
-
-
+k=160.*50;
+tf = 0.10.*50;% time window length
+mu=(tf/k)/((1/h)^2);
+if (mu<=0.25) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2)); 
 f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -17,12 +18,18 @@ figureNumber=1;
 [ u ] = function_simulate( 'heat',figureNumber , ... 
     h,k,tf,f_u_0,fleft,fright,fupper,flower );
 
-fig=figure(figureNumber);saveas(fig,'./figures/part2_stable_heat.png');
+fig=figure(figureNumber);
+setprinttemplate(fig,template);
+print('./figures/part2_stable_heat','-dpng');
+else
+    disp('Warmte stebiel: geen geldige h,k of tf')
+end 
 %% UNSTABLE heat equation
 h=20; 
-k=80;
-tf = 0.1;% time window length
-
+k=158.*50;
+tf = 0.1.*50;% time window length
+mu=(tf/k)/((1/h)^2);
+if (mu>.25) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -36,12 +43,18 @@ figureNumber=2;
 [ u ] = function_simulate( 'heat',figureNumber , ... 
     h,k,tf,f_u_0,fleft,fright,fupper,flower );
 
-fig=figure(figureNumber);saveas(fig,'./figures/part2_unstable_heat.png');
+fig=figure(figureNumber); 
+setprinttemplate(fig,template);
+print('./figures/part2_unstable_heat','-dpng');
+else
+    disp('Warmte onstabiel: geen geldige h,k of tf')
+end
 %% STABlE wave equation
 h=20; 
-k=40;
-tf = 1.2;% time window length
-
+k=68;
+tf = 2.4;% time window length
+mu=(tf/k)^2/((1/h)^2);
+if (mu<=0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -54,13 +67,18 @@ flower= @(t,x)0;
 figureNumber=3;
 [ u ] = function_simulate( 'wave',figureNumber , ... 
     h,k,tf,f_u_0,fleft,fright,fupper,flower );
-fig=figure(figureNumber);saveas(fig,'./figures/part2_stable_wave.png');
-
+fig=figure(figureNumber);
+setprinttemplate(fig,template);
+print('./figures/part2_stable_wave','-dpng');
+else
+    disp('Golf stabiel: geen geldige h,k of tf')
+end
 %% UNSTABLE wave equation
 h=20; 
-k=20;
-tf = 1.2;% time window length
-
+k=64;
+tf = 2.4;% time window length
+mu=(tf/k)^2/((1/h)^2);
+if (mu>0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -73,14 +91,19 @@ flower= @(t,x)0;
 figureNumber=4;
 [ u ] = function_simulate( 'wave',figureNumber , ... 
     h,k,tf,f_u_0,fleft,fright,fupper,flower );
-fig=figure(figureNumber);saveas(fig,'./figures/part2_unstable_wave.png');
-
+fig=figure(figureNumber);
+setprinttemplate(fig,template); 
+print('./figures/part2_unstable_wave','-dpng');
+else
+    disp('Golf onstabiel: geen geldige h,k of tf')
+end
 %% STABLE transport equation
 
 h=20; 
-k=80;
-tf = 2;% time window length
-
+k=20;
+tf = 0.5;% time window length
+mu=(tf/k)/((1/h));
+if (mu<=0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -93,12 +116,18 @@ flower= @(t,x)0;
 figureNumber=5;
 [ u ] = function_simulate( 'transport',figureNumber , ... 
     h,k,tf,f_u_0,fleft,fright,fupper,flower );
-fig=figure(figureNumber);saveas(fig,'./figures/part2_stable_transport.png');
+fig=figure(figureNumber);
+setprinttemplate(fig,template); 
+print('./figures/part2_stable_transport','-dpng');
+else
+    disp('Transport stabiel: geen geldige h,k of tf')
+end
 %% UNSTABLE transport equation
 h=20; 
-k=65;
-tf = 2;% time window length
-
+k=32;
+tf = 1;% time window length
+mu=(tf/k)/((1/h));
+if (mu>0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
 f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -111,4 +140,9 @@ flower= @(t,x)0;
 figureNumber=6;
 [ u ] = function_simulate( 'transport',figureNumber , ... 
     h,k,tf,f_u_0,fleft,fright,fupper,flower );
-fig=figure(figureNumber);saveas(fig,'./figures/part2_unstable_transport.png');
+fig=figure(figureNumber); 
+setprinttemplate(fig,template); 
+print('./figures/part2_unstable_transport','-dpng');
+else
+    disp('Transport onstabiel: geen geldige h,k of tf')
+end
