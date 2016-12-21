@@ -1,4 +1,4 @@
-function [ error ] = part3_simulate_accuracy(equation, ...
+function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
     h,k,tf )
 
     f_u_0 =@(x,y) sin(pi.*x).*sin(pi.*y);
@@ -10,6 +10,7 @@ function [ error ] = part3_simulate_accuracy(equation, ...
     % initializations
     dx = 1/h;             % number of points in x
     dt = tf/k;           % number of timesteps
+    
     
     % create indices
     [jx,jy] = meshgrid(1:h);
@@ -70,6 +71,6 @@ function [ error ] = part3_simulate_accuracy(equation, ...
             return;
         end
     end 
-    disp(['mu=' num2str(mu)]);
+    disp(['mu=' num2str(mu) ' dt=' num2str(dt) ' dx=' num2str(dx)]);
     error = max(max(abs(u-u_ex)));
 end

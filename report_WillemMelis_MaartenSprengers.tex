@@ -272,8 +272,23 @@ De stabiliteitsgrens voor de transportvergelijking is $\mu < 0.5 $ met $\mu=\fra
 \section{Nauwkeurigheid TODO}
 Hier kan hetzelfde script van part2 gebruikt worden!, deze geeft namelijk een u terug voor de simulaties... gewoon nog de inf norm bepalen.. Alsook de analytische oplossingen om ze mee te vergelijken.
 	\subsection{Warmte vergelijking}
+	De nauwkeurigheid van de warmte verlijking is van de orde $O(\Delta x^2 , \Delta t) $. Als we $\mu$ willen constant houden dan moeten we als h*2 gaat k*4 doen.
+	
+		\begin{center}
+			\input{./tables/orde_test_heat.tex}
+		\end{center}
+	
+	
 	\subsection{Golf vergelijking}
+		\begin{center}
+			\input{./tables/orde_test_wave.tex}
+		\end{center}
 	\subsection{Transport vergelijking}
+		\begin{center}
+			\input{./tables/orde_test_transport.tex}
+		\end{center}
+	
+	
 \clearpage
 \section{Oplossing op t=0.1 en t=0.2 TODO}
 	\subsection{Warmte vergelijking}
