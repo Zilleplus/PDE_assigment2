@@ -27,7 +27,7 @@ function [ u ] = function_simulate(equation,figureNumber, ...
     f_u_ex_wave = @(x,y,t) sin(pi.*x).*sin(pi.*y).*(cos(sqrt(2).*pi.*t)+sin(sqrt(2).*pi.*t));%zeros(size(x));
     rect = @(x) (0<x & pi>x).*1;
     f_u_ex_transport = @(x,y,t) rect(pi.*x+pi.*t).*rect(pi.*y+pi.*t).*sin(pi.*x+pi.*t).*sin(pi.*y+pi.*t);%zeros(size(x));
-    u_ex = zeros(h,h);
+    u_ex = f_u_0(x(jx),y(jy));
     
     uprevious=u; % needed with the wave equation
     uprevious=f_u_ex_wave(x_mesh,y_mesh,-dt);

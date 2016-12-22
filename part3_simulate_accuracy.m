@@ -17,7 +17,9 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
 
     % create initial grid
     u=zeros(h,h);
+    error_all=zeros(k,1);
     x=linspace(0,1,h);y=linspace(0,1,h);
+
     u(1:end,1:end)=f_u_0(x(jx),y(jy));
 
     % set the border conditions
@@ -34,7 +36,7 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
     f_u_ex_wave = @(x,y,t) sin(pi.*x).*sin(pi.*y).*(cos(sqrt(2).*pi.*t)+sin(sqrt(2).*pi.*t));%zeros(size(x));
     rect = @(x) (0<x & pi>x).*1;
     f_u_ex_transport = @(x,y,t) rect(pi.*x+pi.*t).*rect(pi.*y+pi.*t).*sin(pi.*x+pi.*t).*sin(pi.*y+pi.*t);%zeros(size(x));
-    u_ex = zeros(h,h);
+    u_ex = f_u_0(x(jx),y(jy));
     
     uprevious=u; % needed with the wave equation
     uprevious=f_u_ex_wave(x(jx),y(jy),-dt);
@@ -46,21 +48,28 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
             mu=dt/(dx^2); 
             u(2:end-1,2:end-1) = functin_integrate_heat( u,mu,h,j_int);
             u_ex = f_u_ex_heat(x(jx),y(jy),n*dt);           
+%            error_all(n)=max(max(abs(u-u_ex)));
+            error_all(n)=norm(abs(u-u_ex),inf);
         elseif(strcmp(equation,'wave'))
             mu=dt^2/dx^2; 
             [u(2:end-1,2:end-1),uprevious] = functin_integrate_wave( ...
                 u,uprevious,mu,h,j_int);
+
             u_ex = f_u_ex_wave(x(jx),y(jy),n*dt);
+%            error_all(n)=max(max(abs(u-u_ex)));
+            error_all(n)=norm(abs(u-u_ex),inf);
         elseif(strcmp(equation,'transport'))
             mu=dt/dx;
             u(2:end-1,2:end-1) = functin_integrate_transport( u,mu,h,j_int);
             u_ex(2:end-1,2:end-1) = f_u_ex_transport(...
                 x(jx(2:end-1,2:end-1)),y(jy(2:end-1,2:end-1)),n*dt);
+%            error_all(n)=max(max(abs(u-u_ex)));
+            error_all(n)=norm(abs(u-u_ex),inf);
         else
             disp('error invaid equation choice');
             return;
         end
     end 
     disp(['mu=' num2str(mu) ' dt=' num2str(dt) ' dx=' num2str(dx)]);
-    error = norm(u-u_ex,inf);
+    error = error_all(end); % van end een 1 maken voor error op eerste element
 end

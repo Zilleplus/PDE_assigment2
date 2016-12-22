@@ -7,8 +7,8 @@ clc;clear all;
 % An accuracy of order O(delta t , delta x ^2)
 clc;
 h=10;
-k=40;
-tf=0.1;
+k=50*3;
+tf=0.1*3;
 
 steps=4;
 error_heat = zeros(3,steps);
@@ -25,7 +25,6 @@ matrix2latex(error_heat, './tables/orde_test_heat.tex', ...
 
 disp(error_heat);
 %% EXPERIMENTAL TABLE, what happens if dt is insanely large?
-clc;
 h=100;
 k=40;
 steps=4;
@@ -66,17 +65,15 @@ matrix2latex(error_wave, './tables/orde_test_wave.tex', ...
     'alignment', 'c', ...
     'format', '%-6.2e');
 
-disp(error_transport);
-
 %%
 % transport
 
-clc;clear all;
-h=50; 
-k=30;
-tf = 0.1;% time window length
+%clc;clear all;
+h=20; 
+k=40;
+tf = 1;% time window length
 
-steps=3;
+steps=4;
 error_transport = zeros(3,steps);
 % generate table
 for i=1:steps
