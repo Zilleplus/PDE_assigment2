@@ -7,8 +7,8 @@ clc;clear all;
 % An accuracy of order O(delta t , delta x ^2)
 clc;
 h=10;
-k=50*3;
-tf=0.1*3;
+k=60;
+tf=0.1;
 
 steps=4;
 error_heat = zeros(3,steps);
@@ -25,6 +25,7 @@ matrix2latex(error_heat, './tables/orde_test_heat.tex', ...
 
 disp(error_heat);
 %% EXPERIMENTAL TABLE, what happens if dt is insanely large?
+clc;
 h=100;
 k=40;
 steps=4;

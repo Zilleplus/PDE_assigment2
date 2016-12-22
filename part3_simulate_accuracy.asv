@@ -56,29 +56,27 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
             mu=dt/(dx^2); 
             u(2:end-1,2:end-1) = functin_integrate_heat( u,mu,h,j_int);
             u_ex = f_u_ex_heat(x_mesh,y_mesh,n*dt);
-%            error_all(n)=max(max(abs(u-u_ex)));
-            error_all(n)=norm(abs(u-u_ex),inf);
+            error_all(n)=max(max(abs(u-u_ex)));
+            %error_all(n)=norm(abs(u-u_ex),inf);
         elseif(strcmp(equation,'wave'))
             mu=dt^2/dx^2; 
             [u(2:end-1,2:end-1),uprevious] = functin_integrate_wave( ...
                 u,uprevious,mu,h,j_int);
             u_ex = f_u_ex_wave(x_mesh,y_mesh,n*dt);
-%            error_all(n)=max(max(abs(u-u_ex)));
-            error_all(n)=norm(abs(u-u_ex),inf);
+            error_all(n)=max(max(abs(u-u_ex)));
         elseif(strcmp(equation,'transport'))
             mu=dt/dx;
             u(2:end-1,2:end-1) = functin_integrate_transport( u,mu,h,j_int);
 
             u_ex(2:end-1,2:end-1) = f_u_ex_transport(...
                 x_mesh(2:end-1,2:end-1),y_mesh(2:end-1,2:end-1),n*dt);
-%            error_all(n)=max(max(abs(u-u_ex)));
-            error_all(n)=norm(abs(u-u_ex),inf);
+            error_all(n)=max(max(abs(u-u_ex)));
         else
             disp('error invaid equation choice');
             return;
         end
     end 
     disp(['mu=' num2str(mu) ' dt=' num2str(dt) ' dx=' num2str(dx)]);
-    error = error_all(end); % van end een 1 maken voor error op eerste element
+    error = error_all(1);
 end
 
