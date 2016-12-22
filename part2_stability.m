@@ -1,4 +1,6 @@
+clear all;clc;
 load('part2_style.mat') % load style sheet
+
 %% STABLE heat equation
 h=20; 
 k=160.*50;
@@ -22,7 +24,7 @@ fig=figure(figureNumber);
 setprinttemplate(fig,template);
 print('./figures/part2_stable_heat','-dpng');
 else
-    disp('Warmte stebiel: geen geldige h,k of tf')
+    disp('Warmte stabiel: geen geldige h,k of tf')
 end 
 %% UNSTABLE heat equation
 h=20; 
