@@ -299,15 +299,19 @@ De exacte oplossing voor de warmtevergelijking met $U_0=sin(pi\cdot x)\cdot sin(
 		\begin{center}
 			\input{./tables/orde_test_heat.tex}
 		\end{center}
-	
+	);
 	
 	\subsection{Golf vergelijking}
+	De exacte oplossing voor de golfvergelijking met $U_0=sin(pi\cdot x)\cdot sin(pi \cdot y)$ en Dirichlet randvoorwaarden is: $u(x,y,t)= sin(pi \cdot x)\cdot sin(pi\cdot y) \cdot (cos(sqrt(2)\cdot pi \cdot t)+sin(sqrt(2) \cdot pi\cdot t) $ 
+	
 In de onderstaande tabel is ook hier weer te zien dat de globale maximale fout daalt met dezelfde factor als $\Delta x$ voor de golfvergelijking. Maar doordat de nauwkeurigheid is van de orde $O(\Delta x^2 , \Delta t^2)$ moeten we slechts t en x met een factor 2 doen dalen om de fout met een factor 4 te laten dalen.
 		\begin{center}
 			\input{./tables/orde_test_wave.tex}
 		\end{center}
 	\subsection{Transport vergelijking}
-Voor de transportvergelijking daalt de globale fout met een factor iets kleiner als 2 daalt wanner $\Delta x$ met een factor 2 daalt. 
+	De exacte oplossing voor de transportvergelijking met $U_0=sin(pi\cdot x)\cdot sin(pi \cdot y)$ en Dirichlet randvoorwaarden is: $u(x,y,t)= rect(pi.*x+pi.*t).*rect(pi.*y+pi.*t).*sin(pi.*x+pi.*t).*sin(pi.*y+pi.*t) $ 
+	
+Voor de transportvergelijking daalt de globale fout met een factor kleiner als 2. Wanneer $\Delta x$ met een foctor 2 daalt, daalt de fout met ongeveer een factor 1.4. 
 		\begin{center}
 			\input{./tables/orde_test_transport.tex}
 		\end{center}

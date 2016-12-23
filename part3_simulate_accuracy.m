@@ -8,7 +8,7 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
     fupper= @(t,x)0;
     flower= @(t,x)0;
     % initializations
-    dx = 1/h;             % number of points in x
+    dx = 1/(h-1);             % number of points in x
     dt = tf/k;           % number of timesteps
     
     % create indices

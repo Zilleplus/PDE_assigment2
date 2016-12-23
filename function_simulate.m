@@ -1,7 +1,7 @@
 function [ u ] = function_simulate(equation,figureNumber, ...
     h,k,tf,f_u_0,fleft,fright,fupper,flower )
     % initializations
-    dx = 1/h;             % number of points in x
+    dx = 1/(h-1);             % number of points in x
     dt = tf/k;           % number of timesteps
     
     % create indices

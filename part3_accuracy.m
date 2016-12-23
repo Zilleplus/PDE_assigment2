@@ -13,11 +13,9 @@ tf=0.1*2;
 steps=4;
 error_heat = zeros(3,steps);
 for i=1:steps
-        h1=h*(2^(i-1));
-    k1=k*(4^(i-1));
-    [error_heat(1,i), error_heat(2,i), error_heat(3,i)] = part3_simulate_accuracy('heat',h1,k1,tf );
-    %h=h*2;
-    %k=k*4;
+    [error_heat(1,i), error_heat(2,i), error_heat(3,i)] = part3_simulate_accuracy('heat',h,k,tf );
+    h=(h-1)*2+1;
+    k=k*4;
 end
 rowLabels = {'error', 'dt', 'dx'};
 matrix2latex(error_heat, './tables/orde_test_heat.tex', ... 
@@ -54,10 +52,10 @@ steps=4;
 error_wave = zeros(3,steps);
 % generate table
 for i=1:steps
-    dx(i) = 1/h;             % number of points in x
+    dx(i) = 1/(h-1);             % number of points in x
     dt(i) = tf/k;
     [error_wave(1,i), error_wave(2,i), error_wave(3,i)]  = part3_simulate_accuracy('wave',h,k,tf );
-    h=h*2;
+    h=(h-1)*2+1;
     k=k*2;
 end
 disp(error_wave);
@@ -72,7 +70,7 @@ matrix2latex(error_wave, './tables/orde_test_wave.tex', ...
 
 %clc;clear all;
 h=20; 
-k=40;
+k=60;
 tf = 1;% time window length
 
 steps=4;
@@ -80,7 +78,7 @@ error_transport = zeros(3,steps);
 % generate table
 for i=1:steps
     [error_transport(1,i), error_transport(2,i), error_transport(3,i)] = part3_simulate_accuracy('transport',h,k,tf );
-    h=h*2;
+    h=(h-1)*2+1;
     k=k*2;
 end
 rowLabels = {'error', 'dt', 'dx'};

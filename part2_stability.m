@@ -5,7 +5,8 @@ load('part2_style.mat') % load style sheet
 h=20; 
 k=160.*30;
 tf = 0.10.*30;% time window length
-mu=(tf/k)/((1/h)^2);
+
+mu=(tf/k)/((1/(h-1))^2);
 if (mu<=0.25) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2)); 
@@ -28,9 +29,9 @@ else
 end 
 %% UNSTABLE heat equation
 h=20; 
-k=158.*30;
+k=140.*30;
 tf = 0.1.*30;% time window length
-mu=(tf/k)/((1/h)^2);
+mu=(tf/k)/((1/(h-1))^2);
 if (mu>.25) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
@@ -55,7 +56,7 @@ end
 h=20; 
 k=85;
 tf = 3;% time window length
-mu=(tf/k)^2/((1/h)^2);
+mu=(tf/k)^2/((1/(h-1))^2);
 if (mu<=0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
@@ -77,9 +78,9 @@ else
 end
 %% UNSTABLE wave equation
 h=20; 
-k=80;
+k=76;
 tf = 3;% time window length
-mu=(tf/k)^2/((1/h)^2);
+mu=(tf/k)^2/((1/(h-1))^2);
 if (mu>0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
@@ -102,9 +103,9 @@ end
 %% STABLE transport equation
 
 h=20; 
-k=20;
-tf = 0.5;% time window length
-mu=(tf/k)/((1/h));
+k=40;
+tf = 1;% time window length
+mu=(tf/k)/((1/(h-1)));
 if (mu<=0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));
@@ -128,7 +129,7 @@ end
 h=20; 
 k=32;
 tf = 1;% time window length
-mu=(tf/k)/((1/h));
+mu=(tf/k)/((1/(h-1)));
 if (mu>0.5) 
 % intial condition
 %f_u_0 =@(x,y) zeros(size(x,1),size(x,2));

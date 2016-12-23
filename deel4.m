@@ -14,7 +14,7 @@ flower= @(t,x) 0;
 h=30; 
 k=900;
 tf = 0.2;% time window length
-mu=(tf/k)/((1/h)^2);
+mu=(tf/k)/((1/(h-1))^2);
 if (mu<=0.25) 
 
 figureNumber=1;
@@ -32,7 +32,7 @@ end
 h=30; 
 k=10;
 tf = 0.2;% time window length
-mu=(tf/k)^2/((1/h)^2);
+mu=(tf/k)^2/((1/(h-1))^2);
 if (mu<=0.5) 
 
 figureNumber=2;
@@ -49,7 +49,7 @@ end
 h=30; 
 k=30;
 tf = 0.2;% time window length
-mu=(tf/k)/((1/h));
+mu=(tf/k)/((1/(h-1)));
 if (mu<=0.5) 
 % intial condition
 figureNumber=3;
