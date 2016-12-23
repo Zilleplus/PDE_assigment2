@@ -99,53 +99,63 @@
 \tableofcontents
 \newpage
 
-%\section{Algemene structuur Matlab implementatie}
-%\subsection{indexing}
-%Er zijn 4 verschillende matrixen met indexen. De matrix jx bevat de x coördinaat van ieder punten op het grid en jy de y coördinaten van ieder punt. Deze twee matrixen kunnen gecombineerd worden om de matrix j te vormen. Coördinaten van de interne punten, dus alle punten zonder de randen zijn bewaard in j\_int.
-%
-%Hieronder is een eenvoudig voorbeeld voor een grid van 4*4.
-%\begin{center}
-%	\captionof{table}{jx}
-%	\begin{tabular}{ c c c c }
-%		1 & 2 & 3 & 4 \\
-%		1 & 2 & 3 & 4 \\
-%		1 & 2 & 3 & 4 \\
-%		1 & 2 & 3 & 4
-%	
-%	\end{tabular}
-%\end{center}
-%
-%\begin{center}
-%	\captionof{table}{jy}
-%	\begin{tabular}{ c c c c }
-%		1 & 1 & 1 & 1 \\
-%		2 & 2 & 2 & 2 \\
-%		3 & 3 & 3 & 3 \\
-%		4 & 4 & 4 & 4
-%	\end{tabular}
-%\end{center}
-%
-%\begin{center}
-%	\captionof{table}{j}
-%	\begin{tabular}{ c c c c }
-%		1 & 5 & 9  & 13 \\
-%		2 & 6 & 10 & 14 \\
-%		3 & 7 & 11 & 15 \\
-%		4 & 8 & 12 & 16
-%	\end{tabular}
-%\end{center}
-%
-%\begin{center}
-%	\captionof{table}{$j\_int$}
-%	\begin{tabular}{ c  c }
-%
-%		6 & 10 \\
-%		7 & 11 \\
-%
-%	\end{tabular}
-%\end{center}
+\section{Matlab implementatie}
+\subsection{indexing}
+Er zijn 4 verschillende matrixen met indexen. De matrix jx bevat de x coördinaat van ieder punten op het grid en jy de y coördinaten van ieder punt. Deze twee matrixen word gecombineerd en vormen matrix j. Coördinaten van de interne punten, dus alle punten zonder de randen zijn bewaard in j\_int.
 
+Hieronder is een eenvoudig voorbeeld voor een grid van 4*4.
 
+\begin{minipage}[b]{0.25\linewidth}
+\captionof{table}{jx}
+	\begin{center}
+		\begin{tabular}{ c c c c }
+			1 & 2 & 3 & 4 \\
+			1 & 2 & 3 & 4 \\
+			1 & 2 & 3 & 4 \\
+			1 & 2 & 3 & 4
+		
+		\end{tabular}
+	\end{center}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.25\linewidth}
+	\begin{center}
+		\captionof{table}{jy}
+		\begin{tabular}{ c c c c }
+			1 & 1 & 1 & 1 \\
+			2 & 2 & 2 & 2 \\
+			3 & 3 & 3 & 3 \\
+			4 & 4 & 4 & 4
+		\end{tabular}
+	\end{center}
+\end{minipage}
+\begin{minipage}[b]{0.25\linewidth}
+	\begin{center}
+		\captionof{table}{j}
+		\begin{tabular}{ c c c c }
+			1 & 5 & 9  & 13 \\
+			2 & 6 & 10 & 14 \\
+			3 & 7 & 11 & 15 \\
+			4 & 8 & 12 & 16
+		\end{tabular}
+	\end{center}
+\end{minipage}
+\begin{minipage}[b]{0.25\linewidth}
+		\begin{center}
+			\captionof{table}{$j\_int$}
+			\begin{tabular}{ c  c }
+		
+				6 & 10 \\
+				7 & 11 \\
+		
+			\end{tabular}
+		\end{center}
+\end{minipage}
+
+\subsection{Testen als de code werkt}
+Een eerste test die werd uitgevoerd op de warmte vergelijking is alles op 1 zetten behalve de randen op 0. De waarde van het oppervlak moet achter enkele seconden 0 zijn.  Als de randen allemaal op 1 staan moet het oppervlak bij 1 blijven.
+
+Een tweede test is eigenlijk opgave 3, de oplossing moet er niet alleen uitkomen. Ze moet alsook snel genoeg convergeren. Opgave 3 combineert beiden, en is dus eigenlijk de ideale test. Natuurlijk kunnen software testen nooit aantonen dat code werkt, ze kunnen slechts aantonen of ze niet werken. De profiler uit Matlab geeft aan dat elke regel code is uitgevoerd, onze line coverage is 100\%, dit is alsook positief.
 
 \section{Integratie Matlab}
 
@@ -282,9 +292,9 @@ In figuur \ref{fig:Golf}\ is te zien dat de numerieke oplossing van de golfverge
 
 
 	\subsection{Warmte vergelijking}
-De exacte oplossing voor de warmetvergelijking met $U_0=sin(pi\cdot x)\cdot sin(pi \cdot y)$ en Dirichlet randvoorwaarden is: $u(x,y,t)= sin(pi\cdot x)\cdot sin(pi\cdot y)\cdot exp(-2\cdot pi^2\cdot t) $ 
+De exacte oplossing voor de warmtevergelijking met $U_0=sin(pi\cdot x)\cdot sin(pi \cdot y)$ en Dirichlet randvoorwaarden is: $u(x,y,t)= sin(pi\cdot x)\cdot sin(pi\cdot y)\cdot exp(-2\cdot pi^2\cdot t) $ 
 	
-	De nauwkeurigheid van één stap van het numerieke schema van de warmte verlijking is van de orde $O(\Delta x^2 , \Delta t) $. Als we $\mu$ willen constant houden dan moeten $\Delta x $ halveren en $ \Delta t$ delen door 4. In de tabel hieronder is te zien dat de globale maximale fout daalt met dezelfde factor als $\Delta x$.  
+	De nauwkeurigheid van één stap van het numerieke schema van de warmte vergelijking is van de orde $O(\Delta x^2 , \Delta t) $. Als we $\mu$ willen constant houden dan moeten $\Delta x $ halveren en $ \Delta t$ delen door 4. In de tabel hieronder is te zien dat de globale maximale fout daalt met dezelfde factor als $(\Delta x)^2 en \Delta t$ dalen, 4 dus.  
 	
 		\begin{center}
 			\input{./tables/orde_test_heat.tex}
@@ -292,7 +302,7 @@ De exacte oplossing voor de warmetvergelijking met $U_0=sin(pi\cdot x)\cdot sin(
 	
 	
 	\subsection{Golf vergelijking}
-In de onderstaande tabel is ook hier weer te zien dat de globale maximale fout daalt met dezelfde factor als $\Delta x$ voor de golfvergelijking.  
+In de onderstaande tabel is ook hier weer te zien dat de globale maximale fout daalt met dezelfde factor als $\Delta x$ voor de golfvergelijking. Maar doordat de nauwkeurigheid is van de orde $O(\Delta x^2 , \Delta t^2)$ moeten we slechts t en x met een factor 2 doen dalen om de fout met een factor 4 te laten dalen.
 		\begin{center}
 			\input{./tables/orde_test_wave.tex}
 		\end{center}
@@ -304,7 +314,7 @@ Voor de transportvergelijking daalt de globale fout met een factor iets kleiner 
 	
 %\clearpage
 \section{Oplossing op $t=0.1s$ en $t=0.2s$}
-Als waarde voor h hebben we 30 gekozen omdat dit volgens ons een voldoende resolutie is. De waarde van k hebben we gekozen zodat de stabiliteit bewaart blijft. De resultaten op tijdstip $t=0.1s$ en $t=0.2s$ kunnen bekeken worden in figuur \ref{fig:Deel4}\
+Als waarde voor h hebben we 30 gekozen omdat dit volgens ons een voldoende resolutie is. De figuren namelijk vloeiend genoeg. De waarde van k hebben we gekozen zodat de stabiliteit bewaart blijft. De resultaten op tijdstip $t=0.1s$ en $t=0.2s$ kunnen bekeken worden in figuur \ref{fig:Deel4}\
 	
 	\begin{figure}[H]
 		\centering
