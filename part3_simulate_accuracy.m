@@ -47,7 +47,7 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
         if(strcmp(equation,'heat'))
             mu=dt/(dx^2); 
             u(2:end-1,2:end-1) = functin_integrate_heat( u,mu,h,j_int);
-            u_ex = f_u_ex_heat(x(jx),y(jy),n*dt);           
+            u_ex = f_u_ex_heat(x(jx),y(jy),n*dt);    
             error_all(n)=max(max(abs(u-u_ex)));
 %             error_all(n)=norm(abs(u-u_ex),inf);
         elseif(strcmp(equation,'wave'))
@@ -71,5 +71,5 @@ function [ error,dt,dx ] = part3_simulate_accuracy(equation, ...
         end
     end 
     disp(['mu=' num2str(mu) ' dt=' num2str(dt) ' dx=' num2str(dx)]);
-    error = error_all(end); % van end een 1 maken voor error op eerste element
+    error = max(error_all(:)); % van end een 1 maken voor error op eerste element
 end

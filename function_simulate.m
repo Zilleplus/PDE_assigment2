@@ -30,7 +30,7 @@ function [ u ] = function_simulate(equation,figureNumber, ...
     u_ex = f_u_0(x(jx),y(jy));
     
     uprevious=u; % needed with the wave equation
-    uprevious=f_u_ex_wave(x(jx),y(jx),-dt);
+    uprevious=f_u_ex_wave(x(jy),y(jx),-dt);
     
     % plot the initial condition
     figure(figureNumber);clf;

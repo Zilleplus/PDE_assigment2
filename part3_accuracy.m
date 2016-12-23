@@ -3,19 +3,21 @@
 % dt = tf/k
 clc;clear all;
 %%
-
+format long
 % An accuracy of order O(delta t , delta x ^2)
-clc;
+%clc;
 h=10;
-k=50*3;
-tf=0.1*3;
+k=50*2;
+tf=0.1*2;
 
 steps=4;
 error_heat = zeros(3,steps);
 for i=1:steps
-    [error_heat(1,i), error_heat(2,i), error_heat(3,i)] = part3_simulate_accuracy('heat',h,k,tf );
-    h=h*2;
-    k=k*4;
+        h1=h*(2^(i-1));
+    k1=k*(4^(i-1));
+    [error_heat(1,i), error_heat(2,i), error_heat(3,i)] = part3_simulate_accuracy('heat',h1,k1,tf );
+    %h=h*2;
+    %k=k*4;
 end
 rowLabels = {'error', 'dt', 'dx'};
 matrix2latex(error_heat, './tables/orde_test_heat.tex', ... 
@@ -24,21 +26,21 @@ matrix2latex(error_heat, './tables/orde_test_heat.tex', ...
     'format', '%-6.2e');
 
 disp(error_heat);
-%% EXPERIMENTAL TABLE, what happens if dt is insanely large?
-h=100;
-k=40;
-steps=4;
-
-tf=0.0000001;
-
-for i=1:steps
-    [error_heat(1,i), error_heat(2,i), error_heat(3,i)]  = part3_simulate_accuracy('heat',h,k,tf );
-    h=h*2;
-    k=k*4;
-end
-
-% dx = 1/h;             % number of points in x
-% dt = tf/k;           % number of timesteps
+% %% EXPERIMENTAL TABLE, what happens if dt is insanely large?
+% h=100;
+% k=40;
+% steps=4;
+% 
+% tf=0.0000001;
+% 
+% for i=1:steps
+%     [error_heat(1,i), error_heat(2,i), error_heat(3,i)]  = part3_simulate_accuracy('heat',h,k,tf );
+%     h=h*2;
+%     k=k*4;
+% end
+% 
+% % dx = 1/h;             % number of points in x
+% % dt = tf/k;           % number of timesteps
 
 %%
 

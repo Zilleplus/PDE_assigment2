@@ -3,8 +3,8 @@ load('part2_style.mat') % load style sheet
 
 %% STABLE heat equation
 h=20; 
-k=160.*50;
-tf = 0.10.*50;% time window length
+k=160.*30;
+tf = 0.10.*30;% time window length
 mu=(tf/k)/((1/h)^2);
 if (mu<=0.25) 
 % intial condition
@@ -28,8 +28,8 @@ else
 end 
 %% UNSTABLE heat equation
 h=20; 
-k=158.*50;
-tf = 0.1.*50;% time window length
+k=158.*30;
+tf = 0.1.*30;% time window length
 mu=(tf/k)/((1/h)^2);
 if (mu>.25) 
 % intial condition
@@ -53,8 +53,8 @@ else
 end
 %% STABlE wave equation
 h=20; 
-k=68;
-tf = 2.4;% time window length
+k=85;
+tf = 3;% time window length
 mu=(tf/k)^2/((1/h)^2);
 if (mu<=0.5) 
 % intial condition
@@ -77,8 +77,8 @@ else
 end
 %% UNSTABLE wave equation
 h=20; 
-k=64;
-tf = 2.4;% time window length
+k=80;
+tf = 3;% time window length
 mu=(tf/k)^2/((1/h)^2);
 if (mu>0.5) 
 % intial condition

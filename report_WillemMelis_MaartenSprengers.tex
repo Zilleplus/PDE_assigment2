@@ -99,57 +99,57 @@
 \tableofcontents
 \newpage
 
-\section{Algemene structuur Matlab implementatie}
-\subsection{indexing}
-Er zijn 4 verschillende matrixen met indexen. De matrix jx bevat de x coördinaat van ieder punten op het grid en jy de y coördinaten van ieder punt. Deze twee matrixen kunnen gecombineerd worden om de matrix j te vormen. Coördinaten van de interne punten, dus alle punten zonder de randen zijn bewaard in j\_int.
+%\section{Algemene structuur Matlab implementatie}
+%\subsection{indexing}
+%Er zijn 4 verschillende matrixen met indexen. De matrix jx bevat de x coördinaat van ieder punten op het grid en jy de y coördinaten van ieder punt. Deze twee matrixen kunnen gecombineerd worden om de matrix j te vormen. Coördinaten van de interne punten, dus alle punten zonder de randen zijn bewaard in j\_int.
+%
+%Hieronder is een eenvoudig voorbeeld voor een grid van 4*4.
+%\begin{center}
+%	\captionof{table}{jx}
+%	\begin{tabular}{ c c c c }
+%		1 & 2 & 3 & 4 \\
+%		1 & 2 & 3 & 4 \\
+%		1 & 2 & 3 & 4 \\
+%		1 & 2 & 3 & 4
+%	
+%	\end{tabular}
+%\end{center}
+%
+%\begin{center}
+%	\captionof{table}{jy}
+%	\begin{tabular}{ c c c c }
+%		1 & 1 & 1 & 1 \\
+%		2 & 2 & 2 & 2 \\
+%		3 & 3 & 3 & 3 \\
+%		4 & 4 & 4 & 4
+%	\end{tabular}
+%\end{center}
+%
+%\begin{center}
+%	\captionof{table}{j}
+%	\begin{tabular}{ c c c c }
+%		1 & 5 & 9  & 13 \\
+%		2 & 6 & 10 & 14 \\
+%		3 & 7 & 11 & 15 \\
+%		4 & 8 & 12 & 16
+%	\end{tabular}
+%\end{center}
+%
+%\begin{center}
+%	\captionof{table}{$j\_int$}
+%	\begin{tabular}{ c  c }
+%
+%		6 & 10 \\
+%		7 & 11 \\
+%
+%	\end{tabular}
+%\end{center}
 
-Hieronder is een eenvoudig voorbeeld voor een grid van 4*4.
-\begin{center}
-	\captionof{table}{jx}
-	\begin{tabular}{ c c c c }
-		1 & 2 & 3 & 4 \\
-		1 & 2 & 3 & 4 \\
-		1 & 2 & 3 & 4 \\
-		1 & 2 & 3 & 4
-	
-	\end{tabular}
-\end{center}
-
-\begin{center}
-	\captionof{table}{jy}
-	\begin{tabular}{ c c c c }
-		1 & 1 & 1 & 1 \\
-		2 & 2 & 2 & 2 \\
-		3 & 3 & 3 & 3 \\
-		4 & 4 & 4 & 4
-	\end{tabular}
-\end{center}
-
-\begin{center}
-	\captionof{table}{j}
-	\begin{tabular}{ c c c c }
-		1 & 5 & 9  & 13 \\
-		2 & 6 & 10 & 14 \\
-		3 & 7 & 11 & 15 \\
-		4 & 8 & 12 & 16
-	\end{tabular}
-\end{center}
-
-\begin{center}
-	\captionof{table}{$j\_int$}
-	\begin{tabular}{ c  c }
-
-		6 & 10 \\
-		7 & 11 \\
-
-	\end{tabular}
-\end{center}
 
 
+\section{Integratie Matlab}
 
-\section{Integratie verschillende vergelijkingen}
-
-	\subsection{warmte vergelijking}
+	\subsection{Warmte vergelijking}
 		\begin{eqnarray}
 			\frac{\partial u}{\partial t} = 
 			\frac{\partial ^2 u}{\partial x^2} + 
@@ -216,7 +216,7 @@ end
 \end{lstlisting}
 De stabiliteitsgrens voor de transportvergelijking is $\mu < 0.5 $ met $\mu=\frac{\Delta t}{\Delta x}$.  
 
-\clearpage
+%\clearpage
 \section{Stabiliteit}
 	\subsection{Warmte vergelijking}
 	Zoals eerder vermeld is het stabiliteitsgrens van de warmtevergelijking  $\mu_x=\mu_y=\frac{\Delta y}{\Delta x^2} \leq \frac{1}{4}$. In de Matlab implementatie gebruiken we de constanten k en h, om $\Delta t$, $\Delta x$ en $\Delta y$ te berekenen met $\Delta t=\frac{tf}{k}$ en $(\Delta x)^2 = \frac{1}{h^2}$. In figuur \ref{fig:Warmte}\ is duidelijk te zien dat als $\mu $ groter is als $0.25$ de numerieke oplossing onstabiel wordt. Deze overgang tussen stabiel en onstabiel verloop scherp. Let bij het bekijken van de figuren wel goed op de assen.
@@ -228,51 +228,63 @@ De stabiliteitsgrens voor de transportvergelijking is $\mu < 0.5 $ met $\mu=\fra
 	\begin{figure}[H]
 		\centering
 		\subfloat[Stabiel]{
-			\includegraphics[width=0.47\textwidth]{part2_stable_heat.png}
+			\includegraphics[width=0.3\textwidth]{part2_stable_heat.png}
 		}
-		\hfill
+		%\hfill
 		\subfloat[Onstabiel]{
-			\includegraphics[width=0.47\textwidth]{part2_unstable_heat.png}
+			\includegraphics[width=0.3\textwidth]{part2_unstable_heat.png}
 		}
-	\caption{Demonstratie stabiliteit van warmte vergelijking en keuze h/k}
+	\caption{Demonstratie stabiliteit van warmte vergelijking}
 	\label{fig:Warmte}
 	\end{figure}
 	
+	\clearpage
 	\subsection{Golf vergelijking}
-	De grens van $\mu$ moet nog bepaald worden warschnk is dit 0.5.
+
+In figuur \ref{fig:Golf}\ is te zien dat de numerieke oplossing van de golfvergelijking onstabiel wordt voor $\mu > 0.5$ .	
+	
 	\begin{figure}[H]
 		\centering
-		\subfloat[h=20 en k=40 de grens van stabiliteit]{
-			\includegraphics[width=0.47\textwidth]{part2_stable_wave.png}
+		\subfloat[Stabiel]{
+			\includegraphics[width=0.3\textwidth]{part2_stable_wave.png}
 			%\label{fig:}
 		}
-		\hfill
-		\subfloat[h=20 en k=25 de grens van stabiliteit]{
-			\includegraphics[width=0.47\textwidth]{part2_unstable_wave.png}
+		%\hfill
+		\subfloat[Onstabiel]{
+			\includegraphics[width=0.3\textwidth]{part2_unstable_wave.png}
 			%\label{fig:}
 		}
-		\caption{Demonstratie stabiliteit van golf vergelijking en keuze h/k}
+		\caption{Demonstratie stabiliteit van golf vergelijking}
+	\label{fig:Golf}		
 	\end{figure}
+	
+	\clearpage
+	
 	\subsection{Transport vergelijking}
-	Waarschijnlijk is de grens van stabiliteit van dit ding $\mu<0.5$ , dit heb ik experimenteel vastgesteld dus hier moet nog een bewijs .
+	In figuur \ref{fig:Transport}\ is ook te zien dat de numerieke oplossing van de transportvergelijking onstabiel wordt voor $\mu > 0.5$ .
 	\begin{figure}[H]
 		\centering
-		\subfloat[h=20 en k=80 de grens van stabiliteit]{
-			\includegraphics[width=0.47\textwidth]{part2_stable_transport.png}
+		\subfloat[Stabiel]{
+			\includegraphics[width=0.3\textwidth]{part2_stable_transport.png}
 			%\label{fig:}
 		}
-		\hfill
-		\subfloat[h=20 en k=65 de grens van stabiliteit]{
-			\includegraphics[width=0.47\textwidth]{part2_unstable_transport.png}
+		%\hfill
+		\subfloat[Onstabiel]{
+			\includegraphics[width=0.3\textwidth]{part2_unstable_transport.png}
 			%\label{fig:}
 		}
-		\caption{Demonstratie stabiliteit van transport vergelijking en keuze h/k}
+		\caption{Demonstratie stabiliteit van transport vergelijking}
+	\label{fig:Transport}
 	\end{figure}
-\clearpage
-\section{Nauwkeurigheid TODO}
-Hier kan hetzelfde script van part2 gebruikt worden!, deze geeft namelijk een u terug voor de simulaties... gewoon nog de inf norm bepalen.. Alsook de analytische oplossingen om ze mee te vergelijken.
+%\clearpage
+\section{Nauwkeurigheid}
+%Hier kan hetzelfde script van part2 gebruikt worden!, deze geeft namelijk een u terug voor de %simulaties... gewoon nog de inf norm bepalen.. Alsook de analytische oplossingen om ze mee te %vergelijken.
+
+
 	\subsection{Warmte vergelijking}
-	De nauwkeurigheid van de warmte verlijking is van de orde $O(\Delta x^2 , \Delta t) $. Als we $\mu$ willen constant houden dan moeten we als h*2 gaat k*4 doen.
+De exacte oplossing voor de warmetvergelijking met $U_0=sin(pi\cdot x)\cdot sin(pi \cdot y)$ en Dirichlet randvoorwaarden is: $u(x,y,t)= sin(pi\cdot x)\cdot sin(pi\cdot y)\cdot exp(-2\cdot pi^2\cdot t) $ 
+	
+	De nauwkeurigheid van één stap van het numerieke schema van de warmte verlijking is van de orde $O(\Delta x^2 , \Delta t) $. Als we $\mu$ willen constant houden dan moeten $\Delta x $ halveren en $ \Delta t$ delen door 4. In de tabel hieronder is te zien dat de globale maximale fout daalt met dezelfde factor als $\Delta x$.  
 	
 		\begin{center}
 			\input{./tables/orde_test_heat.tex}
@@ -280,43 +292,37 @@ Hier kan hetzelfde script van part2 gebruikt worden!, deze geeft namelijk een u 
 	
 	
 	\subsection{Golf vergelijking}
+In de onderstaande tabel is ook hier weer te zien dat de globale maximale fout daalt met dezelfde factor als $\Delta x$ voor de golfvergelijking.  
 		\begin{center}
 			\input{./tables/orde_test_wave.tex}
 		\end{center}
 	\subsection{Transport vergelijking}
+Voor de transportvergelijking daalt de globale fout met een factor iets kleiner als 2 daalt wanner $\Delta x$ met een factor 2 daalt. 
 		\begin{center}
 			\input{./tables/orde_test_transport.tex}
 		\end{center}
 	
+%\clearpage
+\section{Oplossing op $t=0.1s$ en $t=0.2s$}
+Als waarde voor h hebben we 30 gekozen omdat dit volgens ons een voldoende resolutie is. De waarde van k hebben we gekozen zodat de stabiliteit bewaart blijft. De resultaten op tijdstip $t=0.1s$ en $t=0.2s$ kunnen bekeken worden in figuur \ref{fig:Deel4}\
 	
-\clearpage
-\section{Oplossing op t=0.1 en t=0.2 TODO}
-	\subsection{Warmte vergelijking}
-	TODO bepaal h en k
-	\subsection{Golf vergelijking}
-	TODO bepaal h en k
-	\subsection{Transport vergelijking}
-	TODO bepaal h en k
-	\subsection{Resultaat}
-	los een bug op met de beginvoorwaarden, die gaan om 1 of andere reden altijd naar nul , bekijk deze lijn eens:u=f\_u\_0(jx,jy); de ze komt altijd 0 uit, wrschnlk een type in de definitie van f\_u\_0(jx,jy)
-	
-	Die functie super klein, dit is waarschijnlijk niet juist
 	\begin{figure}[H]
 		\centering
-		\subfloat[h=? en k=?]{
-			\includegraphics[width=0.47\textwidth]{part4_heat.png}
+		\subfloat[Warmte: h=30 en k=900]{
+			\includegraphics[width=0.3\textwidth]{part4_heat.png}
 			%\label{fig:}
 		}
-		\hfill
-		\subfloat[h=? en k=?]{
-			\includegraphics[width=0.47\textwidth]{part4_wave.png}
+		%\hfill
+		\subfloat[Golf: h=30 en k=10]{
+			\includegraphics[width=0.3\textwidth]{part4_wave.png}
 			%\label{fig:}
 		}
-	
-		\subfloat[h=? en k=?]{
-			\includegraphics[width=0.47\textwidth]{part4_transport.png}
+	%\hfill
+		\subfloat[Transport: h=30 en k=30]{
+			\includegraphics[width=0.3\textwidth]{part4_transport.png}
 			%\label{fig:}
 		}
 		\caption{Resultaat integratie op t=0.1 en t=0.2, de linker plot is altijd t=0.1 en de rechter is t=0.2}
+			\label{fig:Deel4}
 	\end{figure}
 \end{document}
